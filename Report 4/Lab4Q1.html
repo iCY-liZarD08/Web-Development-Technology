@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>23081002 Qn1</title>
+    </head>
+    <body>
+        <label for="">Enter number: </label>
+        <input id="input" type="number" />
+        <button id="btn">Answer</button>
+        <br />
+        <br />
+        <p id="para">Answer comes here:</p>
+
+        <script>
+            const myPara = document.getElementById("para");
+            const button = document.getElementById("btn");
+
+            function fibonacciSequence(n) {
+                let sequence = [];
+                let a = 0,
+                    b = 1;
+
+                for (let i = 0; i < n; i++) {
+                    sequence.push(a);
+                    let temp = a + b;
+                    a = b;
+                    b = temp;
+                }
+
+                return sequence;
+            }
+
+            const testFunc = () => {
+                const inpString = document.getElementById("input");
+                const inpVal = parseInt(inpString.value, 10);
+
+                if (isNaN(inpVal) || inpVal < 1) {
+                    myPara.innerText = "Please enter a valid positive number.";
+                    return;
+                }
+
+                myPara.innerText = `Fibonacci sequence up to ${inpVal}: ${fibonacciSequence(
+                    inpVal
+                ).join(", ")}`;
+            };
+
+            button.addEventListener("click", testFunc);
+        </script>
+    </body>
+</html>

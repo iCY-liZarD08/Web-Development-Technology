@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>23081002 Registration Form</title>
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background-color: #f4f4f4;
+                margin: 0;
+            }
+            .form-container {
+                text-align: center;
+                width: 350px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                color: #333;
+                margin-bottom: 15px;
+            }
+            label {
+                display: block;
+                margin-top: 10px;
+                text-align: left;
+                color: #555;
+            }
+            input {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 14px;
+                box-sizing: border-box;
+            }
+            button {
+                width: 100%;
+                padding: 12px;
+                background-color: #18a2ac;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 15px;
+                transition: background-color 0.3s ease;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="form-container">
+            <h1>Register</h1>
+            <form id="registrationForm">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required />
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required />
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <script>
+            document
+                .getElementById("registrationForm")
+                .addEventListener("submit", function (event) {
+                    const name = document.getElementById("name");
+                    const email = document.getElementById("email");
+                    const password = document.getElementById("password");
+                    let isValid = true;
+                    // Validate Name
+                    if (!/^[A-Za-z ]{3,}$/.test(name.value)) {
+                        name.setCustomValidity(
+                            "Name must be at least 3 characters long and should not contain numbers."
+                        );
+                        console.log(
+                            "Error: Name must be at least 3 characters long and should not contain numbers."
+                        );
+                        isValid = false;
+                    } else {
+                        name.setCustomValidity("");
+                        console.log("Valid Name:", name.value);
+                    }
+                    // Validate Email
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                        email.setCustomValidity(
+                            "Please enter a valid email address."
+                        );
+                        console.log("Error: Invalid Email Address.");
+                        isValid = false;
+                    } else {
+                        email.setCustomValidity("");
+                        console.log("Valid Email:", email.value);
+                    }
+                    // Validate Password
+                    if (
+                        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!$#])[A-Za-z\d@!$#]{8,}$/.test(
+                            password.value
+                        )
+                    ) {
+                        password.setCustomValidity(
+                            "Password must be at least 8 characters long, with at least 1 number, 1 uppercase letter, 1 lowercase letter, and 1 special character (@,!,$,#, etc.)."
+                        );
+                        console.log("Error: Invalid Password.");
+                        isValid = false;
+                    } else {
+                        password.setCustomValidity("");
+                        console.log("Valid Password:", password.value);
+                    }
+                    if (!isValid) {
+                        event.preventDefault();
+                        name.reportValidity();
+                        email.reportValidity();
+                        password.reportValidity();
+                    } else {
+                        console.log("Form submitted successfully!");
+                    }
+                });
+        </script>
+    </body>
+</html>

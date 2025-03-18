@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>23081002 Toggle Background Color</title>
+        <style>
+            body.dark-mode {
+                background-color: #333;
+                color: #fff;
+            }
+            body.light-mode {
+                background-color: #fff;
+                color: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Toggle Background Color</h1>
+        <button onclick="toggleMode()">Toggle Mode</button>
+
+        <script>
+            const setCookie = (name, value, days) => {
+                const d = new Date();
+                d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+                const expires = "expires=" + d.toUTCString();
+                document.cookie =
+                    name + "=" + value + ";" + expires + ";path=/";
+            };
+
+            const getCookie = (name) => {
+                const cname = name + "=";
+                const decodedCookie = decodeURIComponent(document.cookie);
+                const ca = decodedCookie.split(";");
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === " ") {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(cname) === 0) {
+                        return c.substring(cname.length, c.length);
+                    }
+                }
+                return "";
+            };
+
+            const toggleMode = () => {
+                const currentMode = document.body.classList.contains(
+                    "dark-mode"
+                )
+                    ? "dark"
+                    : "light";
+                const newMode = currentMode === "dark" ? "light" : "dark";
+                document.body.classList.remove(currentMode + "-mode");
+                document.body.classList.add(newMode + "-mode");
+                setCookie("mode", newMode, 7);
+            };
+
+            const loadMode = () => {
+                const mode = getCookie("mode") || "light";
+                document.body.classList.add(mode + "-mode");
+            };
+
+            window.onload = loadMode;
+        </script>
+    </body>
+</html>
